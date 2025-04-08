@@ -1,0 +1,705 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Modern color palette with better contrast */
+    --color-primary: 218 165 32;
+    --color-secondary: 192 192 192;
+    
+    /* Alternative vibrant theme colors */
+    --color-vibrant-primary: 138 92 246; /* Vibrant purple */
+    --color-vibrant-secondary: 249 115 22; /* Vibrant orange */
+    
+    /* Status colors */
+    --color-success: 34 197 94;
+    --color-warning: 234 179 8;
+    --color-danger: 239 68 68;
+    --color-info: 59 130 246;
+    
+    /* Background and surface colors */
+    --color-background: 17 23 41; /* Deep navy */
+    --color-foreground: 226 232 240; /* Light gray */
+    --color-muted: 148 163 184; /* Muted blue-gray */
+    --color-surface: 30 41 59; /* Navy surface */
+    --color-surface-hover: 44 55 74; /* Lighter navy hover */
+    --color-border: 71 85 105; /* Border color */
+    
+    /* Code syntax highlighting colors */
+    --color-code-string: 167 243 208; /* Mint green */
+    --color-code-keyword: 196 181 253; /* Lavender */
+    --color-code-function: 251 146 60; /* Orange */
+    --color-code-comment: 148 163 184; /* Muted blue-gray */
+    --color-code-variable: 226 232 240; /* Light gray */
+    
+    /* Animation timings */
+    --transition-fast: 150ms;
+    --transition-medium: 300ms;
+    --transition-slow: 500ms;
+  }
+
+  /* Light theme variables, activated with data-theme="light" on the html tag */
+  html[data-theme="light"] {
+    --color-background: 240 245 250; /* Light blue-gray */
+    --color-foreground: 15 23 42; /* Navy blue */
+    --color-muted: 71 85 105; /* Slate gray */
+    --color-surface: 226 232 240; /* Light gray */
+    --color-surface-hover: 203 213 225; /* Light gray hover */
+    --color-border: 148 163 184; /* Blue-gray */
+  }
+
+  /* High contrast theme for accessibility */
+  html[data-theme="high-contrast"] {
+    --color-primary: 255 255 0; /* Yellow */
+    --color-secondary: 0 255 255; /* Cyan */
+    --color-background: 0 0 0; /* Pure black */
+    --color-foreground: 255 255 255; /* Pure white */
+    --color-muted: 200 200 200; /* Light gray */
+    --color-surface: 20 20 20; /* Dark gray */
+    --color-surface-hover: 40 40 40; /* Medium gray */
+    --color-border: 255 255 255; /* White */
+  }
+
+  body {
+    @apply bg-black text-white antialiased;
+    background-image: radial-gradient(
+      circle at 50% 10%,
+      rgba(var(--color-primary), 0.15) 0%,
+      rgba(var(--color-background), 1) 50%
+    );
+    background-attachment: fixed;
+  }
+
+  /* Improved focus styles for all interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-black;
+  }
+  
+  /* Better typography for readability */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+    text-wrap: balance;
+  }
+  
+  p {
+    text-wrap: pretty;
+    @apply leading-relaxed;
+  }
+}
+
+/* Skip to content link for keyboard users */
+.skip-link {
+  @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 
+    focus:px-4 focus:py-2 focus:bg-primary focus:text-black focus:font-medium focus:rounded-md;
+}
+
+/* Enhanced gradient text */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFD700] to-[#C0C0C0];
+}
+
+/* Refined card gradient */
+.card-gradient {
+  background: linear-gradient(45deg, rgba(218, 165, 32, 0.1), rgba(192, 192, 192, 0.1));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--color-border), 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Sleek border gradient */
+.border-gradient {
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, rgb(218, 165, 32), rgb(192, 192, 192));
+}
+
+.border-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, 
+    rgba(var(--color-primary), 0.5) 0%, 
+    rgba(var(--color-secondary), 0.5) 100%
+  );
+}
+
+/* Command card with enhanced visibility - fixing greyed out appearance */
+.command-card {
+  @apply transition-all duration-300 ease-in-out;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgb(75, 85, 99);
+}
+
+.command-card:hover {
+  @apply transform -translate-y-1;
+  border-color: rgb(218, 165, 32);
+  box-shadow: 0 4px 20px rgba(218, 165, 32, 0.25);
+}
+
+/* Ensuring command text is clearly visible */
+.command-card h3,
+.command-card .command-title {
+  @apply text-white font-semibold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.command-card p,
+.command-card .command-description {
+  @apply text-gray-200;
+}
+
+.command-card code,
+.command-card pre,
+.command-card .command-syntax {
+  @apply bg-black text-yellow-300 font-mono p-2 rounded my-2 block;
+  border: 1px solid rgba(218, 165, 32, 0.3);
+}
+
+/* Elegant keyboard shortcut styling */
+.keyboard-shortcut {
+  @apply px-2 py-1 rounded text-xs font-mono;
+  background-color: rgba(var(--color-surface), 0.8);
+  border: 1px solid rgba(var(--color-border), 0.5);
+  color: rgb(var(--color-muted));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced tooltip styling */
+.tooltip {
+  @apply invisible absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0;
+  border: 1px solid rgba(var(--color-border), 0.3);
+  backdrop-filter: blur(10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(5px);
+  max-width: 300px;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  visibility: hidden;
+}
+
+.tooltip[data-popper-placement^='top'] .tooltip-arrow {
+  bottom: -4px;
+  transform: rotate(45deg);
+}
+
+.tooltip[data-popper-placement^='bottom'] .tooltip-arrow {
+  top: -4px;
+  transform: rotate(45deg);
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible opacity-100;
+  transform: translateY(0);
+}
+
+.has-tooltip:hover .tooltip .tooltip-arrow {
+  visibility: visible;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/50;
+}
+
+/* Enhanced code block styling */
+.code-block {
+  @apply font-mono text-sm bg-black/40 rounded-lg p-4 overflow-x-auto border border-gray-800;
+  color: rgb(var(--color-foreground));
+  box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.2);
+  counter-reset: line;
+  line-height: 1.6;
+  
+  /* Support for line numbers */
+  &.line-numbers {
+    padding-left: 3.5rem;
+    
+    .line {
+      counter-increment: line;
+      position: relative;
+      
+      &::before {
+        content: counter(line);
+        position: absolute;
+        left: -3rem;
+        width: 2.5rem;
+        text-align: right;
+        color: rgba(var(--color-muted), 0.6);
+      }
+    }
+  }
+  
+  /* Syntax highlighting */
+  .string { color: rgb(var(--color-code-string)); }
+  .keyword { color: rgb(var(--color-code-keyword)); }
+  .function { color: rgb(var(--color-code-function)); }
+  .comment { color: rgb(var(--color-code-comment)); }
+  .variable { color: rgb(var(--color-code-variable)); }
+}
+
+.code-block::-webkit-scrollbar {
+  height: 4px;
+}
+
+/* Copy button for code blocks */
+.code-copy-button {
+  @apply absolute top-2 right-2 p-1.5 rounded-md opacity-50 hover:opacity-100 transition-opacity;
+  background-color: rgba(var(--color-surface), 0.8);
+  border: 1px solid rgba(var(--color-border), 0.3);
+}
+
+/* Progress indicator */
+.progress-dot {
+  @apply w-2 h-2 rounded-full transition-all duration-300;
+  background-color: rgba(var(--color-muted), 0.3);
+}
+
+.progress-dot.active {
+  @apply w-4;
+  background-color: rgb(var(--color-primary));
+}
+
+/* Terminal styling */
+.terminal {
+  @apply font-mono text-sm bg-gray-900 rounded-lg p-4 border border-gray-700;
+}
+
+.terminal-prompt::before {
+  content: '$ ';
+  @apply text-success;
+}
+
+.terminal-output {
+  @apply text-gray-400 pl-4;
+}
+
+/* Auto-typing animation for terminal */
+.auto-type {
+  display: inline-block;
+  position: relative;
+}
+
+.auto-type::after {
+  content: '|';
+  position: absolute;
+  right: -0.1em;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Git diagram styling */
+.git-node {
+  @apply w-10 h-10 rounded-full flex items-center justify-center relative border-2;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.git-node.commit {
+  @apply border-primary bg-primary/20;
+}
+
+.git-node.branch {
+  @apply border-secondary bg-secondary/20;
+}
+
+.git-edge {
+  @apply h-[2px] bg-gradient-to-r from-primary to-secondary;
+}
+
+/* Branching visualization */
+.branch-tree {
+  @apply relative py-8;
+}
+
+.branch-line {
+  @apply absolute left-1/2 top-0 bottom-0 w-0.5;
+  background-color: rgba(var(--color-border), 0.5);
+  transform: translateX(-50%);
+}
+
+.branch-commit {
+  @apply relative flex items-center mb-8 z-10;
+}
+
+.branch-commit::before {
+  content: '';
+  @apply absolute left-1/2 top-1/2 w-5 h-0.5;
+  background-color: rgba(var(--color-border), 0.5);
+  transform: translate(-100%, -50%);
+}
+
+.branch-fork {
+  @apply absolute left-1/2 w-0.5;
+  background-color: rgba(var(--color-border), 0.5);
+  transform: translateX(-50%) rotate(45deg);
+  transform-origin: top;
+}
+
+/* Difficulty badges */
+.difficulty-badge {
+  @apply text-xs font-semibold px-2 py-1 rounded-full;
+}
+
+.difficulty-badge.beginner {
+  @apply bg-green-500/20 text-green-400;
+}
+
+.difficulty-badge.intermediate {
+  @apply bg-yellow-500/20 text-yellow-400;
+}
+
+.difficulty-badge.advanced {
+  @apply bg-red-500/20 text-red-400;
+}
+
+/* Button styling */
+.btn {
+  @apply px-4 py-2 rounded-md font-medium transition-all duration-200 focus-ring inline-flex items-center justify-center gap-2;
+  
+  &[disabled] {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+.btn-primary {
+  background-color: rgba(var(--color-primary), 0.2);
+  color: rgb(var(--color-primary));
+  border: 1px solid rgba(var(--color-primary), 0.3);
+  
+  &:hover:not([disabled]) {
+    background-color: rgba(var(--color-primary), 0.3);
+  }
+  
+  &:active:not([disabled]) {
+    background-color: rgba(var(--color-primary), 0.4);
+  }
+}
+
+.btn-secondary {
+  background-color: rgba(var(--color-secondary), 0.2);
+  color: rgb(var(--color-secondary));
+  border: 1px solid rgba(var(--color-secondary), 0.3);
+  
+  &:hover:not([disabled]) {
+    background-color: rgba(var(--color-secondary), 0.3);
+  }
+  
+  &:active:not([disabled]) {
+    background-color: rgba(var(--color-secondary), 0.4);
+  }
+}
+
+/* Solid button variants */
+.btn-solid-primary {
+  background-color: rgb(var(--color-primary));
+  color: rgb(17, 24, 39);
+  font-weight: 500;
+  
+  &:hover:not([disabled]) {
+    background-color: rgba(var(--color-primary), 0.9);
+  }
+}
+
+.btn-solid-secondary {
+  background-color: rgb(var(--color-secondary));
+  color: rgb(17, 24, 39);
+  font-weight: 500;
+  
+  &:hover:not([disabled]) {
+    background-color: rgba(var(--color-secondary), 0.9);
+  }
+}
+
+/* Input styling */
+.input {
+  @apply px-4 py-2 rounded-md focus-ring;
+  background-color: rgba(var(--color-surface), 0.8);
+  border: 1px solid rgba(var(--color-border), 0.5);
+  color: rgb(var(--color-foreground));
+}
+
+.input:hover {
+  border-color: rgba(var(--color-primary), 0.3);
+}
+
+.input:focus {
+  border-color: rgb(var(--color-primary));
+}
+
+/* Glass card effect */
+.glass-card {
+  background: rgba(var(--color-surface), 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--color-border), 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Markdown content styling */
+.markdown {
+  @apply space-y-4;
+  
+  h1 {
+    @apply text-2xl font-bold mb-4;
+  }
+  
+  h2 {
+    @apply text-xl font-semibold mb-3;
+  }
+  
+  h3 {
+    @apply text-lg font-medium mb-2;
+  }
+  
+  p {
+    @apply mb-4;
+  }
+  
+  ul, ol {
+    @apply pl-5 mb-4 space-y-2;
+  }
+  
+  ul {
+    @apply list-disc;
+  }
+  
+  ol {
+    @apply list-decimal;
+  }
+  
+  a {
+    @apply text-[rgb(var(--color-primary))] hover:underline;
+  }
+  
+  blockquote {
+    @apply pl-4 border-l-4 border-[rgb(var(--color-border))] italic my-4;
+  }
+  
+  pre {
+    @apply rounded-lg my-4;
+  }
+  
+  img {
+    @apply rounded-lg max-w-full my-4;
+  }
+}
+
+/* Enhanced mobile experience */
+@media (max-width: 640px) {
+  .mobile-touch-target {
+    @apply min-h-[44px] min-w-[44px]; /* Larger touch targets for mobile */
+  }
+  
+  .mobile-menu-item {
+    @apply py-3; /* More vertical space for menu items */
+  }
+}
+
+/* Chat-like UI for interactive learning */
+.chat-message {
+  @apply p-4 rounded-lg mb-4 max-w-[80%];
+}
+
+.chat-message.system {
+  @apply bg-[rgba(var(--color-surface),0.7)] text-[rgb(var(--color-foreground))];
+}
+
+.chat-message.user {
+  @apply bg-[rgba(var(--color-primary),0.2)] text-[rgb(var(--color-foreground))] ml-auto;
+  border: 1px solid rgba(var(--color-primary), 0.3);
+}
+
+/* Tutorial progress bar */
+.tutorial-progress {
+  @apply h-1 bg-[rgba(var(--color-border),0.3)] rounded-full overflow-hidden;
+}
+
+.tutorial-progress-bar {
+  @apply h-full bg-[rgb(var(--color-primary))] transition-all duration-500;
+}
+
+/* Command completion indicator */
+.command-status {
+  @apply flex items-center gap-1 text-xs;
+}
+
+.command-status.completed {
+  @apply text-[rgb(var(--color-success))];
+}
+
+.command-status.practicing {
+  @apply text-[rgb(var(--color-warning))];
+}
+
+.command-status.not-started {
+  @apply text-[rgb(var(--color-muted))];
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .print-break-after {
+    page-break-after: always;
+  }
+  
+  .print-break-avoid {
+    page-break-inside: avoid;
+  }
+}
+
+/* Dark mode for code highlighting when printing */
+@media print {
+  .code-block {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+    border: 1px solid #64748b !important;
+    box-shadow: none !important;
+  }
+  
+  .code-block .string { color: #059669 !important; }
+  .code-block .keyword { color: #7c3aed !important; }
+  .code-block .function { color: #d97706 !important; }
+  .code-block .comment { color: #64748b !important; }
+  .code-block .variable { color: #0f172a !important; }
+}
+
+/* Command status indicators */
+.status-dot {
+  @apply w-2 h-2 rounded-full;
+}
+
+.status-dot.completed {
+  @apply bg-success;
+}
+
+.status-dot.in-progress {
+  @apply bg-warning;
+}
+
+/* Custom tooltip for accessibility */
+.custom-tooltip {
+  @apply absolute z-50 px-2 py-1 text-sm rounded shadow-lg bg-gray-800 text-white;
+  max-width: 250px;
+}
+
+/* Enhanced landing page styles */
+.gradient-gold {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(to right, #ffd700, #ffb700);
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.gradient-silver {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(to right, #c0c0c0, #e0e0e0);
+  text-shadow: 0 0 30px rgba(192, 192, 192, 0.3);
+}
+
+.feature-card {
+  @apply bg-black p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300;
+  width: 260px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.feature-card:hover {
+  border-color: rgba(var(--color-primary), 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), 
+              0 0 20px rgba(var(--color-primary), 0.2);
+}
+
+.start-button {
+  @apply px-10 py-5 text-lg font-bold flex items-center justify-center transition-all duration-300 rounded-xl relative overflow-hidden;
+  background: linear-gradient(90deg, #ffd700, #daa520);
+  color: #000;
+  box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4),
+              0 0 30px rgba(218, 165, 32, 0.2);
+  border: none;
+  min-width: 260px;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(218, 165, 32, 0.5),
+              0 0 50px rgba(218, 165, 32, 0.3);
+}
+
+.start-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(218, 165, 32, 0.4);
+}
+
+.start-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.start-button:hover::before {
+  left: 100%;
+}
